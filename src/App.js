@@ -4,43 +4,40 @@ import './styles/root.scss';
 import { calculateWinner } from './helpers';
 
 const App = () => {
-  // Setting the state for the board. Filling 9 positions in array with a value of none
-  const [board, setBoard] = useState(Array(9).fill(null));
-  // Setting a bool if the next value to be set is X
-  const [isXNext, setIsXNext] = useState(false);
+  const [history, setHistory] = useState([
+    { board: Array(9).fill(null), isXNext: true },
+  ]);
+  const [currentMove, setCurrentMove] = useState(0);
 
-  const winner = calculateWinner(board);
+  const current = history[currentMove];
+
+  const winner = calculateWinner(current.board);
 
   const message = winner
     ? `Winner is ${winner}`
-    : `Next player is ${isXNext ? 'X' : 'O'}`;
-  console.log(winner);
+    : `Next player is ${current.isXNext ? 'X' : 'O'}`;
+
   const handleSquareClick = position => {
-    console.log(board);
-    // If there is already an item in the array at this specific postion then return
-    if (board[position] || winner) return;
-    // Set Board state passing in previous State
-    setBoard(preState => {
-      // Map, (create a new array, calling a function on every element on item) over every item in the array, square and position (array index) array.map((currentValue, index, arr) => {})
-      return preState.map((square, pos) => {
-        // If index and position match
+    if (current.board[position] || winner) return;
+    setHistory(preState => {
+      const last = preState[preState.length - 1];
+
+      const newBoard = last.board.map((square, pos) => {
         if (pos === position) {
-          // If bool bal is true return X else O
-          return isXNext ? 'X' : 'O';
+          return last.isXNext ? 'X' : 'O';
         }
-        // return currentVal
         return square;
       });
+      return preState.concat({ board: newBoard, isXNext: !last.isXNext });
     });
-    // Set the bool to the reverse of what it was
-    setIsXNext(prev => !prev);
+    setCurrentMove(preState => preState + 1);
   };
 
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <h2>{message}</h2>
-      <Board board={board} handleSquareClick={handleSquareClick} />
+      <Board board={current.board} handleSquareClick={handleSquareClick} />
     </div>
   );
 };
