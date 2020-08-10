@@ -21,10 +21,30 @@
 
 Tic Tac Toe game build with React and using React Hooks
 
-### Built With
+## Built With
 
 - [React](https://reactjs.org/)
 - [Node-sass](https://www.npmjs.com/package/node-sass)
+
+### Installation
+
+1. Clone the repo
+
+```sh
+git clone https://github.com/suarez9093/tic-tac-toe.git
+```
+
+2. Install NPM packages
+
+```sh
+npm install
+```
+
+3. Run the application
+
+```sh
+npm run start
+```
 
 <!-- CONTACT -->
 
