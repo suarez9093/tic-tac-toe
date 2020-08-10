@@ -28,7 +28,8 @@
     "eslint-plugin-react": "^7.20.5",
     "parcel": "^1.12.4",
     "prettier": "^2.0.5",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "sass": "^1.26.10"
   },
   "babel": {
     "presets": [
